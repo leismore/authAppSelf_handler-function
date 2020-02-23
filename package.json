@@ -1,0 +1,25 @@
+{
+  "name": "@leismore/authappself_handler",
+  "version": "1.0.0",
+  "description": "An Express.js HTTP handler of authentication and authorization services for self-owned LMOS (NodeJS) applications.",
+  "main":  "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/leismore/authAppSelf_handler-function.git"
+  },
+  "keywords": [
+    "Authentication",
+    "Authorization",
+    "@leismore/auth_app_self"
+  ],
+  "author": "Kyle Chine",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/leismore/authAppSelf_handler-function/issues"
+  },
+  "homepage": "https://github.com/leismore/authAppSelf_handler-function#readme"
+}
