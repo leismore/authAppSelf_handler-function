@@ -1,0 +1,6 @@
+{
+  "auth_app_self":
+  {
+    "timeout": 10000
+  }
+}

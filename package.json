@@ -29,6 +29,7 @@
   },
   "dependencies": {
     "@leismore/lmerror": "^4.0.1",
+    "axios": "^0.19.2",
     "basic-auth": "^2.0.1",
     "express": "^4.17.1"
   }
