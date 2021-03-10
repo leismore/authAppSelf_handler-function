@@ -3,7 +3,7 @@
  * @throw {AASHError}
  */
 
-import * as auth        from 'basic-auth';
+import auth           = require('basic-auth');
 import { AuthenInputs } from './type/AuthenInputs';
 import { AASHError }    from './AASHError';
 

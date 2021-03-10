@@ -2,17 +2,18 @@
  * Generate authAppSelf_handler
  */
 
-import * as express       from 'express';
-import { LMError }        from '@leismore/lmerror';
-import { author }         from '../lib/author';
-import { AuthorInputs }   from '../lib/type/AuthorInputs';
-import { AuthenInputs }   from '../lib/type/AuthenInputs';
-import { parse_httpAuth } from '../lib/parse_httpAuth';
+import express          =   require('express');
+import { author }           from '../lib/author';
+import { AuthorInputs }     from '../lib/type/AuthorInputs';
+import { AuthenInputs }     from '../lib/type/AuthenInputs';
+import { parse_httpAuth }   from '../lib/parse_httpAuth';
+import { GeneratorHostApp } from './type/GeneratorHostApp';
+import { GeneratorErrors }  from './type/GeneratorErrors';
+import { ExpressHandler }   from './type/ExpressHandler';
 
-function generator( hostApp:         { hostID: string,  permission:  string  },
+function generator( hostApp:         GeneratorHostApp,
                     authAppSelf_api: string,
-                    errors:          { auth:   LMError, authAppSelf: LMError } ):
-  ( req:express.Request, _res:express.Response, next:express.NextFunction ) => void
+                    errors:          GeneratorErrors ): ExpressHandler
 {
   function authAppSelf_handler(req:express.Request, _res:express.Response, next:express.NextFunction):void
   {
@@ -73,4 +74,4 @@ function generator( hostApp:         { hostID: string,  permission:  string  },
   return authAppSelf_handler;
 }
 
-export { generator };
+export { generator, GeneratorHostApp, GeneratorErrors, ExpressHandler };

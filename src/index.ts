@@ -1,1 +1,1 @@
-export { generator } from './lib/generator';
+export { generator, GeneratorHostApp, GeneratorErrors, ExpressHandler } from './lib/generator';
