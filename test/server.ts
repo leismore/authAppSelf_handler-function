@@ -3,7 +3,7 @@ import { Response as Resp, ResData as RespData } from '@leismore/response';
 import { generator, GeneratorHostApp, GeneratorErrors, ExpressHandler } from '../src/index';
 import { LMError } from '@leismore/lmerror';
 import { error_handler_last } from '@leismore/error_handler_last';
-import { get_handler as head_handler } from '@leismore/get_handler'
+import { get_handler as head_handler } from '@leismore/get_handler';
 import * as CONFIG from './config.json';
 
 const app  = express();

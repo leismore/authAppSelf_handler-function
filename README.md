@@ -14,32 +14,67 @@ Buy me a coffee via [![PayPal Donation](https://www.paypalobjects.com/en_AU/i/bt
 
 `npm install @leismore/authappself_handler`
 
+## Test
+
+`npm test`
+
 ## Examples
 
 ```typescript
-import * as express           from 'express';
-import { generator }          from '@leismore/authappself_handler';
-import { LMError }            from '@leismore/lmerror';
+import express = require('express');
+import { Response as Resp, ResData as RespData } from '@leismore/response';
+import { generator, GeneratorHostApp, GeneratorErrors, ExpressHandler } from '@leismore/authappself_handler';
+import { LMError } from '@leismore/lmerror';
 import { error_handler_last } from '@leismore/error_handler_last';
 
+const app  = express();
+const port = 8081;
+const API  = 'http://AUTH_APP_SELF_AUTHORIZER_URL';
+
 const authError        = new LMError( {message: 'authorization failure', code: '1'}, {statusCode: '403'} );
-const authAppSelfError = new LMError( {message: 'authorization failure', code: '2'}, {statusCode: '500'} );
+const authAppSelfError = new LMError( {message: 'auth_app_self failure', code: '2'}, {statusCode: '503'} );
+const gErrors:GeneratorErrors     = {auth:authError, authAppSelf:authAppSelfError};
+const gHostApp:GeneratorHostApp   = {hostID:'YOUR_HOST_APP_ID', permission:'YOUR_PERMISSION_NAME'};
+const get_handler1:ExpressHandler = generator(gHostApp, API, gErrors);
 
-const authAppSelf_handler = generator( {hostID: 'HOST_ID', permission: 'APP_PERMISSION'}, 'https://auth_app_self.com',
-  {auth: authError, authAppSelf: authAppSelfError} );
+const get_handler2:ExpressHandler = (req:express.Request, res:express.Response, next:express.NextFunction) => {
+    const resp = new Resp(res);
+    let data:RespData = { statusCode: '200',
+      headers: {'Content-Type': 'application/json'}, body: {'result': 'OK'} };
+    resp.send(data);
+};
 
-let app = express();
-app.post('/', authAppSelf_handler);
-app.use( error_handler_last );
+app.get('/', get_handler1, get_handler2 );
+app.use(error_handler_last);
 
-app.listen( 3000, 'localhost', 511,
-  () => {
-    console.log('[My App] is working on <localhost:3000>');
-  }
-);
+app.listen(port, () => {
+  console.log(`@leismore/authappself_handler testing server, listening at http://localhost:${port}`);
+});
 ```
 
 ## API Details
+
+### Types
+
+**ExpressHandler**
+
+```typescript
+import { Request, Response, NextFunction } from 'express';
+type ExpressHandler = (req:Request, res:Response, next:NextFunction) => void;
+```
+
+**GeneratorHostApp**
+
+```typescript
+type GeneratorHostApp = { hostID: string, permission: string };
+```
+
+**GeneratorErrors**
+
+```typescript
+import { LMError } from '@leismore/lmerror';
+type GeneratorErrors = { auth:LMError, authAppSelf:LMError };
+```
 
 ### The Generator
 
@@ -47,13 +82,12 @@ app.listen( 3000, 'localhost', 511,
 /**
  * Generate authAppSelf_handler function.
  * @param  hostApp
- * @param  authAppSelf_api  API URL
- * @param  errors           LMError (or sub-class) instances for authorization failure (HTTP 403) and authAppSelf failure (HTTP 500)
+ * @param  authAppSelf_api  auth_app_self:authorizer API
+ * @param  errors           LMError (or sub-class) instances for authorization failure (HTTP 403) and authAppSelf failure (HTTP 503)
  */
-function generator( hostApp:         { hostID: string,  permission:  string  },
+function generator( hostApp:         GeneratorHostApp,
                     authAppSelf_api: string,
-                    errors:          { auth:   LMError, authAppSelf: LMError } ):
-  ( req:express.Request, _res:express.Response, next:express.NextFunction ) => void
+                    errors:          GeneratorErrors ): ExpressHandler
 ```
 
 * LMError     = [@leismore/lmerror (NPM)](https://www.npmjs.com/package/@leismore/lmerror)
@@ -63,18 +97,18 @@ function generator( hostApp:         { hostID: string,  permission:  string  },
 
 ```typescript
 /**
- * Test HTTP credentials, if allowed, pass to the next handlers.
+ * Test the HTTP credential, if valid, pass to the next handler.
  * else
- *   Pass a HTTP 403 error to the error handlers.
- * or
- *   Pass a HTTP 500 error to the error handlers, if auth_app_self application is not available.
+ *   Pass a LMError object to the next error handler.
  */
-function authAppSelf_handler(req:express.Request, _res:express.Response, next:express.NextFunction): void
+function authAppSelf_handler(req:express.Request, res:express.Response, next:express.NextFunction): void
 ```
+
+* [Express.js](http://expressjs.com)
 
 ## Copyright
 
-MIT License
+GNU Affero General Public License v3.0
 
 ## Authors
 
