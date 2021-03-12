@@ -1,0 +1,20 @@
+{
+    "authAppSelf":
+    {
+        "authorAPI": "http://localhost:8080/api/authorizer"
+    },
+
+    "tester_host":
+    {
+        "appID": "6705d606-854f-56cf-a33a-31d47a116c4c",
+        "token": "DRPLVe7VMxuMDpZ36dF3Zz"
+    },
+
+    "tester_client":
+    {
+        "appID": "1e142c27-5bd5-48df-848a-e892d6b323a6",
+        "token": "PLuunBbm8ffw4DqbmiMvxK"
+    },
+
+    "permissions": ["test_permission_1", "test_permission_2"]
+}
