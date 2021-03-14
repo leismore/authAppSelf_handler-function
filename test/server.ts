@@ -1,6 +1,11 @@
 import express = require('express');
-import { Response as Resp, ResData as RespData } from '@leismore/response';
-import { generator, GeneratorHostApp, GeneratorErrors, ExpressHandler } from '../src/index';
+import { LMResponse as Resp, LMResponseData as RespData } from '@leismore/response';
+import {
+  authAppSelf_handler_generator         as generator,
+  authAppSelf_handler_generator_HostApp as GeneratorHostApp,
+  authAppSelf_handler_generator_Errors  as GeneratorErrors,
+  ExpressRoutingHandler                 as ExpressHandler
+} from '../src/index';
 import { LMError } from '@leismore/lmerror';
 import { error_handler_last } from '@leismore/error_handler_last';
 import { get_handler as head_handler } from '@leismore/get_handler';
