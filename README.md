@@ -22,8 +22,13 @@ Buy me a coffee via [![PayPal Donation](https://www.paypalobjects.com/en_AU/i/bt
 
 ```typescript
 import express = require('express');
-import { Response as Resp, ResData as RespData } from '@leismore/response';
-import { generator, GeneratorHostApp, GeneratorErrors, ExpressHandler } from '@leismore/authappself_handler';
+import { LMResponse as Resp, LMResponseData as RespData } from '@leismore/response';
+import {
+  authAppSelf_handler_generator         as generator,
+  authAppSelf_handler_generator_HostApp as GeneratorHostApp,
+  authAppSelf_handler_generator_Errors  as GeneratorErrors,
+  ExpressRoutingHandler                 as ExpressHandler
+} from '@leismore/authappself_handler';
 import { LMError } from '@leismore/lmerror';
 import { error_handler_last } from '@leismore/error_handler_last';
 
@@ -56,27 +61,27 @@ app.listen(port, () => {
 
 ### Types
 
-**ExpressHandler**
+**ExpressRoutingHandler**
 
 ```typescript
 import { Request, Response, NextFunction } from 'express';
-type ExpressHandler = (req:Request, res:Response, next:NextFunction) => void;
+type ExpressRoutingHandler = (req:Request, res:Response, next:NextFunction) => void;
 ```
 
-**GeneratorHostApp**
+**authAppSelf_handler_generator_HostApp**
 
 ```typescript
-type GeneratorHostApp = { hostID: string, permission: string };
+type authAppSelf_handler_generator_HostApp = { hostID: string, permission: string };
 ```
 
-**GeneratorErrors**
+**authAppSelf_handler_generator_Errors**
 
 ```typescript
 import { LMError } from '@leismore/lmerror';
-type GeneratorErrors = { auth:LMError, authAppSelf:LMError };
+type authAppSelf_handler_generator_Errors = { auth:LMError, authAppSelf:LMError };
 ```
 
-### The Generator
+### The Generator: authAppSelf_handler_generator
 
 ```typescript
 /**
@@ -85,9 +90,10 @@ type GeneratorErrors = { auth:LMError, authAppSelf:LMError };
  * @param  authAppSelf_api  auth_app_self:authorizer API
  * @param  errors           LMError (or sub-class) instances for authorization failure (HTTP 403) and authAppSelf failure (HTTP 503)
  */
-function generator( hostApp:         GeneratorHostApp,
-                    authAppSelf_api: string,
-                    errors:          GeneratorErrors ): ExpressHandler
+function authAppSelf_handler_generator(
+  hostApp:         authAppSelf_handler_generator_HostApp,
+  authAppSelf_api: string,
+  errors:          authAppSelf_handler_generator_Errors ): ExpressRoutingHandler
 ```
 
 * LMError     = [@leismore/lmerror (NPM)](https://www.npmjs.com/package/@leismore/lmerror)
