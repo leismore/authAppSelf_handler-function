@@ -36,6 +36,7 @@ function generator( hostApp:         GeneratorHostApp,
     }
     catch (e)
     {
+      // @ts-ignore
       errors.auth.addPrevious(e);
       next( errors.auth );
       return;
