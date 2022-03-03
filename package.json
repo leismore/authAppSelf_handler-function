@@ -26,22 +26,23 @@
   },
   "homepage": "https://github.com/leismore/authAppSelf_handler-function#readme",
   "devDependencies": {
-    "@leismore/error_handler_last": "^2.0.2",
-    "@leismore/get_handler": "^2.0.2",
-    "@leismore/response": "^5.0.1",
+    "@leismore/error_handler_last": "^2.0.3",
+    "@leismore/get_handler": "^2.0.3",
+    "@leismore/response": "^5.0.2",
     "@types/basic-auth": "^1.1.3",
     "@types/chai": "^4.3.0",
     "@types/express": "^4.17.13",
     "@types/mocha": "^9.1.0",
-    "@types/node": "^14.14.45",
+    "@types/node": "~14.18.12",
     "chai": "^4.3.6",
     "mocha": "^9.2.1",
     "start-server-and-test": "^1.14.0",
-    "ts-node": "^10.5.0",
-    "typescript": "^4.5.5"
+    "ts-node": "^10.6.0",
+    "typescript": "~4.5.5"
   },
   "dependencies": {
-    "@leismore/lmerror": "^6.0.2",
+    "@leismore/lmerror": "^6.0.3",
+    "@leismore/unknown2error": "^1.0.0",
     "axios": "^0.26.0",
     "basic-auth": "^2.0.1",
     "express": "^4.17.3"

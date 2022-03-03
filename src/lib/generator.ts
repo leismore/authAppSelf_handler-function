@@ -10,6 +10,7 @@ import { parse_httpAuth }   from '../lib/parse_httpAuth';
 import { GeneratorHostApp } from './type/GeneratorHostApp';
 import { GeneratorErrors }  from './type/GeneratorErrors';
 import { ExpressHandler }   from './type/ExpressHandler';
+import { unknown2error }    from '@leismore/unknown2error';
 
 function generator( hostApp:         GeneratorHostApp,
                     authAppSelf_api: string,
@@ -36,7 +37,8 @@ function generator( hostApp:         GeneratorHostApp,
     }
     catch (e)
     {
-      errors.auth.addPrevious(e);
+      const error = unknown2error(e);
+      errors.auth.addPrevious(error);
       next( errors.auth );
       return;
     }
